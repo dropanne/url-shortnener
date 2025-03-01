@@ -4,9 +4,10 @@ import { createShortLink } from "@/actions/formSubmit";
 import { Heading } from "@/components/Heading";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Copy } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { toast } from "sonner";
 
 export const ShortenForm = () => {
 	const [slug, setSlug] = useState<string>("");
@@ -16,6 +17,13 @@ export const ShortenForm = () => {
 		const { slug } = await createShortLink({ url });
 		setSlug(slug);
 		setUrl("");
+	};
+
+	const handleClick = () => {
+		navigator.clipboard.writeText(
+			`${process.env.NEXT_PUBLIC_APP_URL}/${slug}`
+		);
+		toast.success("Copied shortened url to clipboard!");
 	};
 
 	return (
@@ -42,15 +50,25 @@ export const ShortenForm = () => {
 			</form>
 
 			{slug ? (
-				<Link
-					href={"/" + slug}
-					className={buttonVariants({
-						variant: "link",
-						className: "text-lg",
-					})}
-				>
-					{process.env.NEXT_PUBLIC_APP_URL}/{slug}
-				</Link>
+				<div className="flex items-center justify-center gap-2">
+					<Link
+						href={"/" + slug}
+						className={buttonVariants({
+							variant: "link",
+							className: "text-lg",
+						})}
+					>
+						{process.env.NEXT_PUBLIC_APP_URL}/{slug}
+					</Link>
+					<Button
+						variant="ghost"
+						size="icon"
+						className="cursor-copy"
+						onClick={handleClick}
+					>
+						<Copy className="size-4" />
+					</Button>
+				</div>
 			) : null}
 		</div>
 	);
