@@ -37,7 +37,7 @@ export const ShortenForm = () => {
 					if (e.key === "Enter") e.preventDefault();
 					if (e.ctrlKey && e.key === "Enter") handleSubmit(e);
 				}}
-				className="flex gap-4 min-w-xl items-center justify-center"
+				className="flex flex-col md:flex-row gap-4 min-w-xl max-w-xl items-center justify-center"
 			>
 				<Input
 					id="url"
@@ -52,7 +52,7 @@ export const ShortenForm = () => {
 			</form>
 
 			{slug ? (
-				<div className="flex items-center justify-center gap-2">
+				<div className="flex flex-col md:flex-row items-center justify-center gap-2">
 					<Link
 						href={"/" + slug}
 						className={buttonVariants({
@@ -62,19 +62,21 @@ export const ShortenForm = () => {
 					>
 						{process.env.NEXT_PUBLIC_APP_URL}/{slug}
 					</Link>
-					<Button
-						variant="ghost"
-						size="icon"
-						className="cursor-copy"
-						onClick={handleClick}
-					>
-						<Copy className="size-4" />
-					</Button>
-					<ShareButton
-						title="Short URL"
-						text="A shortened, shareable URL."
-						url={`${process.env.NEXT_PUBLIC_APP_URL}/${slug}`}
-					/>
+					<div className="flex flex-col md:flex-row items-center gap-2 justify-center">
+						<Button
+							variant="ghost"
+							size="icon"
+							className="cursor-copy"
+							onClick={handleClick}
+						>
+							<Copy className="size-4" />
+						</Button>
+						<ShareButton
+							title="Short URL"
+							text="A shortened, shareable URL."
+							url={`${process.env.NEXT_PUBLIC_APP_URL}/${slug}`}
+						/>
+					</div>
 				</div>
 			) : null}
 		</div>
