@@ -1,3 +1,8 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+
+// Firebase config
+const firebaseConfig = {
 const firebaseConfig = {
   apiKey: "AIzaSyDB7ISeqMg9amQMqSC-RmVKVh8F6CV1vT8",
   authDomain: "url-shortner-9afc0.firebaseapp.com",
@@ -7,23 +12,26 @@ const firebaseConfig = {
   appId: "1:29716485939:web:947b3b4a9b7f0c79189046"
 };
 
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-async function redirect() {
-    const shortCode = window.location.pathname.substring(1); // Get the short URL code
-    if (shortCode) {
-        const doc = await db.collection("shortUrls").doc(shortCode).get();
-        if (doc.exists) {
-            const data = doc.data();
-            await db.collection("shortUrls").doc(shortCode).update({
-                clicks: data.clicks + 1
-            });
-            window.location.replace(data.longURL);
-        } else {
-            document.body.innerHTML = "<h1>404: Not Found</h1>";
-        }
-    }
+// Extract the shortCode from the URL
+const shortCode = window.location.pathname.substring(1);
+
+if (shortCode) {
+    const docRef = doc(db, "shortUrls", shortCode);
+    getDoc(docRef)
+        .then((docSnap) => {
+            if (docSnap.exists()) {
+                const data = docSnap.data();
+                updateDoc(docRef, { clicks: data.clicks + 1 });
+                window.location.replace(data.longURL);
+            } else {
+                document.body.innerHTML = "<h1>404: Not Found</h1>";
+            }
+        })
+        .catch((error) => {
+            console.error("Error fetching document: ", error);
+            document.body.innerHTML = "<h1>Something went wrong!</h1>";
+        });
 }
-redirect();
