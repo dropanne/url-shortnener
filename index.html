@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>URL Shortener</title>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js"></script>
+</head>
+<body>
+    <h1>Shorten a URL</h1>
+    <input type="text" id="longUrl" placeholder="Enter URL">
+    <button onclick="shortenUrl()">Shorten</button>
+    <p id="result"></p>
+
+    <script>
+        // Firebase config (replace with your actual values)
+     const firebaseConfig = {
+  apiKey: "AIzaSyDB7ISeqMg9amQMqSC-RmVKVh8F6CV1vT8",
+  authDomain: "url-shortner-9afc0.firebaseapp.com",
+  projectId: "url-shortner-9afc0",
+  storageBucket: "url-shortner-9afc0.firebasestorage.app",
+  messagingSenderId: "29716485939",
+  appId: "1:29716485939:web:947b3b4a9b7f0c79189046"
+};
+
+       // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+        async function shortenUrl() {
+            const longUrl = document.getElementById("longUrl").value;
+            const shortCode = Math.floor(100000 + Math.random() * 900000).toString(); // Generate random 6-digit code
+
+            await db.collection("shortUrls").doc(shortCode).set({
+                longURL: longUrl,
+                clicks: 0
+            });
+
+            document.getElementById("result").innerHTML = `Shortened: <a href="/${shortCode}">yourusername.github.io/${shortCode}</a>`;
+        }
+    </script>
+</body>
+</html>
