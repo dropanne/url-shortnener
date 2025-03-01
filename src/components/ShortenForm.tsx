@@ -2,6 +2,7 @@
 
 import { createShortLink } from "@/actions/formSubmit";
 import { Heading } from "@/components/Heading";
+import { ShareButton } from "@/components/ShareButton";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArrowRight, Copy } from "lucide-react";
@@ -69,6 +70,11 @@ export const ShortenForm = () => {
 					>
 						<Copy className="size-4" />
 					</Button>
+					<ShareButton
+						title="Short URL"
+						text="A shortened, shareable URL."
+						url={`${process.env.NEXT_PUBLIC_APP_URL}/${slug}`}
+					/>
 				</div>
 			) : null}
 		</div>
