@@ -70,6 +70,7 @@ export const ShortenForm = () => {
 							onClick={handleClick}
 						>
 							<Copy className="size-4" />
+							<span className="block md:hidden ml-2">Copy</span>
 						</Button>
 						<ShareButton
 							title="Short URL"
