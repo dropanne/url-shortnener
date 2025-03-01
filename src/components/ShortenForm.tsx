@@ -52,13 +52,10 @@ export const ShortenForm = () => {
 			</form>
 
 			{slug ? (
-				<div className="flex flex-col md:flex-row items-center justify-center gap-2">
+				<div className="flex flex-col md:flex-row w-full items-center justify-center gap-2">
 					<Link
 						href={"/" + slug}
-						className={buttonVariants({
-							variant: "link",
-							className: "text-lg",
-						})}
+						className="max-w-3xl md:max-w-xl text-center line-clamp-1 font-medium hover:underline underline-offset-4 cursor-pointer"
 					>
 						{process.env.NEXT_PUBLIC_APP_URL}/{slug}
 					</Link>
