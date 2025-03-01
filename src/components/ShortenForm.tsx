@@ -29,7 +29,7 @@ export const ShortenForm = () => {
 	};
 
 	return (
-		<div className="flex-1 flex flex-col gap-10 items-center justify-center">
+		<div className="flex-1 flex flex-col w-full p-4 gap-10 items-center justify-center">
 			<Heading>URL Shortener</Heading>
 			<form
 				onSubmit={handleSubmit}
@@ -37,7 +37,7 @@ export const ShortenForm = () => {
 					if (e.key === "Enter") e.preventDefault();
 					if (e.ctrlKey && e.key === "Enter") handleSubmit(e);
 				}}
-				className="flex flex-col md:flex-row gap-4 min-w-xl max-w-xl items-center justify-center"
+				className="flex flex-col md:flex-row gap-4 w-full max-w-xl p-4 items-center justify-center"
 			>
 				<Input
 					id="url"
@@ -62,7 +62,7 @@ export const ShortenForm = () => {
 					>
 						{process.env.NEXT_PUBLIC_APP_URL}/{slug}
 					</Link>
-					<div className="flex flex-col md:flex-row items-center gap-2 justify-center">
+					<div className="flex gap-2 items-center justify-center">
 						<Button
 							variant="ghost"
 							size="icon"
@@ -70,8 +70,8 @@ export const ShortenForm = () => {
 							onClick={handleClick}
 						>
 							<Copy className="size-4" />
-							<span className="block md:hidden ml-2">Copy</span>
 						</Button>
+
 						<ShareButton
 							title="Short URL"
 							text="A shortened, shareable URL."

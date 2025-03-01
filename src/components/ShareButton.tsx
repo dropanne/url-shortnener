@@ -21,7 +21,6 @@ export const ShareButton = ({
 		>
 			<Button variant="ghost" size="icon">
 				<Share className="size-4" />
-				<span className="block md:hidden ml-2">Share</span>
 			</Button>
 		</RWebShare>
 	);
