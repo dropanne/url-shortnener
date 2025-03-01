@@ -6,14 +6,15 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArrowRight, Copy } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import { toast } from "sonner";
 
 export const ShortenForm = () => {
 	const [slug, setSlug] = useState<string>("");
 	const [url, setUrl] = useState<string>("");
 
-	const handleSubmit = async () => {
+	const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+		e.preventDefault();
 		const { slug } = await createShortLink({ url });
 		setSlug(slug);
 		setUrl("");
@@ -32,8 +33,8 @@ export const ShortenForm = () => {
 			<form
 				onSubmit={handleSubmit}
 				onKeyDown={(e) => {
-					if (e.key === "Enter" && !e.ctrlKey) e.preventDefault();
-					if (e.ctrlKey && e.key === "Enter") handleSubmit();
+					if (e.key === "Enter") e.preventDefault();
+					if (e.ctrlKey && e.key === "Enter") handleSubmit(e);
 				}}
 				className="flex gap-4 min-w-xl items-center justify-center"
 			>
