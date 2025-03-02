@@ -3,7 +3,7 @@
 import { createShortLink } from "@/actions/formSubmit";
 import { Heading } from "@/components/Heading";
 import { ShareButton } from "@/components/ShareButton";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ArrowRight, Copy } from "lucide-react";
 import Link from "next/link";
