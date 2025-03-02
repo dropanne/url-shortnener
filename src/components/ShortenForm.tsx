@@ -55,7 +55,7 @@ export const ShortenForm = () => {
 				<div className="flex flex-col md:flex-row w-full items-center justify-center gap-2">
 					<Link
 						href={"/" + slug}
-						className="max-w-3xl md:max-w-xl text-center line-clamp-1 font-medium hover:underline underline-offset-4 cursor-pointer"
+						className="max-w-3xl md:max-w-xl text-center line-clamp-1 truncate font-medium hover:underline underline-offset-4 cursor-pointer"
 					>
 						{process.env.NEXT_PUBLIC_APP_URL}/{slug}
 					</Link>
